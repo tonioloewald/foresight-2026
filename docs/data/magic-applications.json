@@ -229,7 +229,8 @@
     "source": "apportation",
     "desc": "Render an object massing no more than 100kg able to travel through the air at not more than 60km/h (**controlled, bestowed**).",
     "variable": "at intensity A+B'no more than (A+2)x50kg able to travel'at not more than (B+1)x30km/h'",
-    "desc_raw": "Render an object massing no more than 100kg able to travel through the air at not more than 60km/h (controlled, bestowed)"
+    "desc_raw": "Render an object massing no more than 100kg able to travel through the air at not more than 60km/h (controlled, bestowed)",
+    "designNote": "REWORK: forcing flight on a victim must not be cheaper than bestowing it. Make this either (a) resistable AND touch-range, or (b) an explicit grant of flight to the recipient (who then controls their own flight). The only 'fly-and-die' route should remain the complex one — insert a sandestin into the target, bestow flight on the sandestin, and command it to carry the target aloft and drop them — which is costly, multi-part, and easy to avoid/counter."
    },
    {
     "intensity": 2,
@@ -1772,23 +1773,23 @@
    {
     "intensity": 1,
     "code": "§16B2",
-    "name": "Augment Sense",
+    "name": "Heighten Sense",
     "source": "perception",
-    "desc": "Augment one sense already possessed to a degree found in nature (**controlled**). Eg.:\n\n- the eyesight of a hawk;\n- the eyesight of a cat, or an owl;\n- the sense of smell of a bloodhound;\n- the taste (but not experience) of a winetaster;\n- the hearing of a dog, bat, or dolphin.\n\n(Such senses each increase a sandestin's search/scan PCS by a further five.)",
+    "desc": "Augment one sense the **target** already possesses to a degree found in nature (**controlled**). The recipient gains the heightened sense, but **you own the spell** for its duration — you can switch it off, you sustain it, and it lapses if the recipient leaves your range. E.g. the eyesight of a hawk, cat, or owl; the nose of a bloodhound; the palate of a winetaster (the taste, not the experience); the hearing of a dog, bat, or dolphin.\n\n*(Each such sense raises a sandestin's Search/Scan by a further 5.)*",
     "variable": null,
     "desc_raw": "Augment one sense already possessed to a degree found in nature (controlled). Eg.: the eyesight of a hawk the eyesight of a cat, or an owl the sense of smell of a bloodhound the taste (but not experience) of a winetaster the hearing of a dog, bat, dolphin (Such senses each increase a sandestin's search/scan PCS by a further five.)"
    },
    {
     "intensity": 2,
     "code": "§16A3",
-    "name": "Replace Sense (description missing)",
+    "name": "Bestow Heightened Sense",
     "source": "perception",
-    "desc": "(description missing in source — needs recovery from the HindSight PDF)",
+    "desc": "As **Heighten Sense** (§16B2), but **bestowed** — the recipient now **owns and controls** the heightened sense themselves: it persists independently of you and your range, and you can neither sustain nor switch it off.\n\n*(Sense offers a bestowed form one intensity above the controlled one. Bestowal is granted per-application, not a universal option — for many effects it would be badly unbalancing.)*",
     "variable": null,
-    "desc_raw": ""
+    "desc_raw": "Intensity 1 applications, bestowed."
    },
    {
-    "intensity": 1,
+    "intensity": 2,
     "code": "§16A4",
     "name": "Extraordinary Sense",
     "source": "perception",
@@ -1799,11 +1800,11 @@
    {
     "intensity": 3,
     "code": "§16A5",
-    "name": "Sense (description missing)",
+    "name": "Bestow Replacement Sense",
     "source": "perception",
-    "desc": "(description missing in source — needs recovery from the HindSight PDF)",
+    "desc": "As **Replace Sense** (§16A4), but **bestowed** — the recipient owns and controls the new sense themselves, independent of you and your range. (Bestowing costs +1 intensity over the controlled version.)",
     "variable": null,
-    "desc_raw": ""
+    "desc_raw": "Intensity 2 applications, bestowed."
    },
    {
     "intensity": 2,
