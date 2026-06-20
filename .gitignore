@@ -10,3 +10,10 @@ Abortive Previous Attempt/
 
 # scratch
 *.tmp
+
+# build / deps
+node_modules/
+dist/
+demo/
+bun.lock
+tls/

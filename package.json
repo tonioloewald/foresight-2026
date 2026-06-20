@@ -1,0 +1,18 @@
+{
+  "name": "foresight-2026",
+  "private": true,
+  "type": "module",
+  "description": "A streamlined modern edition of the ForeSight tabletop RPG.",
+  "scripts": {
+    "build": "bun build.ts",
+    "dev": "bun dev.ts",
+    "tls": "bunx tosijs-dev-certs"
+  },
+  "devDependencies": {
+    "tosijs-ui": "^1.6.5",
+    "marked": "^16.4.2",
+    "happy-dom": "^20.7.0",
+    "sucrase": "^3.35.0",
+    "chokidar": "^4.0.3"
+  }
+}

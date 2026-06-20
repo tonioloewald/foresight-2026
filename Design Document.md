@@ -218,3 +218,19 @@ These are wired into the interactive character sheet (ForeSight Character Sheet.
 ## Process
 
 Draft chapter-by-chapter in markdown in this folder. Update this document as decisions land. Proposed running order: Introduction & the One Rule → Characters (templates, background factors, attributes, skills, fields, familiarities, talents & quirks) → Resolution → Wounds, Exhaustion & Mortality → Combat → Equipment & Modifications → Magic & Religion → GM material (instant NPCs, NPCs as objects).
+
+## Delivery, hosting & persistence (architecture roadmap)
+
+The whole project is designed to be **data + static site now, backend later — never bespoke infrastructure.**
+
+- **Hosting:** the tosijs-ui **doc-system** lets the entire rules site be served directly from the GitHub repo (`/docs`), giving fully optimized, SEO-friendly, web-1.0-fallback pages *and* full SPA interactivity (client nav, search, live tables) essentially for free. Source markdown (+ `/*# … */` comments) is extracted to a single `docs.json`; pages pre-render and hydrate via an IIFE bundle. **Parents/sections** (`parent`, `order`, `pin` metadata) gather and order the one-pagers thematically.
+- **Single source of truth:** skills / background-factors / fields / magic all live as JSON in `docs/data/`, consumed by both the rules pages (via a `<foresight-table>` wrapper over `<tosi-table>`) and the character sheet. Tables are sortable / searchable / show-hide / tag-filtered for free.
+- **Persistence (planned):** a *componentized Firestore backend* (Tonio's, to be extracted) deploying general-purpose endpoints over Firestore collections with **fine-grained, TypeScript-driven security** (schema enforcement, field/record-level rules). This enables: a player **saving characters securely online**, and a **GM hosting a campaign with a customized ruleset**.
+- **Design implications to honor now:**
+  - **A campaign = base ruleset + overrides.** Keep the JSON data layer *mergeable/overridable* per campaign (tweak costs, tags, availability; add/remove skills; gate magic) rather than hardcoded — the tag system already points this way.
+  - **A character is a persistable record.** Keep the sheet's exported character JSON clean and self-contained so it maps directly to a secured Firestore document (player-owned, GM-readable at campaign scope) when the backend lands.
+
+### Live entity collections & multi-view rendering (later, design for it now)
+
+- **All major entity collections become Firestore-backed** (not just static JSON). Then the **author's fixes propagate automatically** to everyone, and **GMs add their own custom content**. The data model becomes a three-layer merge: **author base (live) → GM / community custom content → per-campaign overrides.** *Design consequence now:* abstract data-loading behind a **source** that is a static JSON file today and a Firestore collection later, so nothing downstream changes when they're swapped.
+- **`foresight-table` is really an *entity-view* component** — one data source, multiple presentations: a sortable **list/table**, a set of **rendered cards**, and a **single-record detail / atlas page**. E.g. a fundamental's applications viewed as a list *or* as cards; future entities like **planets** viewed as a summary list *or* a detailed atlas page. Driven by a per-collection presentation config. *Our data already supports both views:* e.g. `magic-applications.json` carries summary fields (name, intensity, code) for the list and a rich Markdown body for the card. Keep every entity JSON shaped with both a **summary projection** and a **full detail body**.
