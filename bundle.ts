@@ -1,5 +1,6 @@
 import 'tosijs-ui'
 import { tosiTable } from 'tosijs-ui'
+import './src/character-sheet' // registers <foresight-character-sheet>
 
 // Resolve the site root from the loaded IIFE script, so data paths work under
 // any basePath (GitHub project page, custom domain, or local dev).

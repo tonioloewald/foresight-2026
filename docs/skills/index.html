@@ -13,32 +13,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="/foresight-2026/doc-system.css" data-tosi-doc-system />
-  <title>ForeSight 2026 — a streamlined tabletop RPG</title>
-  <meta name="description" content="A modern edition of the ForeSight RPG: one resolution rule (Score × Ease Factor), lethal fast combat, and a careful generative magic system." />
-  <link rel="canonical" href="https://tonioloewald.github.io/foresight-2026/foresight-2026/" />
+  <title>Skills — ForeSight 2026</title>
+  <meta name="description" content="The full skill list — sortable, resizable, drag to reorder columns. Loaded live from data/skills.json (the single source of truth shared with the character…" />
+  <link rel="canonical" href="https://tonioloewald.github.io/foresight-2026/foresight-2026/skills/" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="ForeSight 2026" />
-  <meta property="og:title" content="ForeSight 2026 — a streamlined tabletop RPG" />
-  <meta property="og:description" content="A modern edition of the ForeSight RPG: one resolution rule (Score × Ease Factor), lethal fast combat, and a careful generative magic system." />
-  <meta property="og:url" content="https://tonioloewald.github.io/foresight-2026/foresight-2026/" />
+  <meta property="og:title" content="Skills — ForeSight 2026" />
+  <meta property="og:description" content="The full skill list — sortable, resizable, drag to reorder columns. Loaded live from data/skills.json (the single source of truth shared with the character…" />
+  <meta property="og:url" content="https://tonioloewald.github.io/foresight-2026/foresight-2026/skills/" />
   <meta name="twitter:card" content="summary" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"ForeSight 2026","description":"A modern edition of the ForeSight RPG: one resolution rule (Score × Ease Factor), lethal fast combat, and a careful generative magic system.","url":"https://tonioloewald.github.io/foresight-2026/foresight-2026/","inLanguage":"en","isPartOf":{"@type":"WebSite","name":"ForeSight 2026","url":"https://tonioloewald.github.io/foresight-2026"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Skills","description":"The full skill list — sortable, resizable, drag to reorder columns. Loaded live from data/skills.json (the single source of truth shared with the character…","url":"https://tonioloewald.github.io/foresight-2026/foresight-2026/skills/","inLanguage":"en","isPartOf":{"@type":"WebSite","name":"ForeSight 2026","url":"https://tonioloewald.github.io/foresight-2026"}}</script>
   <link rel="icon" href="/foresight-2026/favicon.svg" />
 </head>
 <body>
   <tosi-doc-system docs="/foresight-2026/docs.json" config="{&quot;projectName&quot;:&quot;ForeSight 2026&quot;}">
   <article class="doc-content">
-<h1>ForeSight 2026</h1>
-<!--{ "pin": "top", "headTitle": "ForeSight 2026 — a streamlined tabletop RPG", "description": "A modern edition of the ForeSight RPG: one resolution rule (Score × Ease Factor), lethal fast combat, and a careful generative magic system." }-->
+<h1>Skills</h1>
+<!--{ "parent": "core", "order": 7 }-->
 
-<p>A streamlined, modern edition of the <strong>ForeSight</strong> tabletop RPG, built on the unpublished 2004 second edition and the 1986 original.</p>
-<p><strong>One rule:</strong> Success Chance = Score × Ease Factor — roll D100 under it. Everything else is that rule applied to different situations.</p>
-<p>Use the navigation to browse the rules one-pagers, or open the live <strong><a href="/character-builder/">Character Builder</a></strong>.</p>
+<p>The full skill list — sortable, resizable, drag to reorder columns. Loaded live from <code>data/skills.json</code> (the single source of truth shared with the character sheet).</p>
+<p><foresight-table src="skills.json" height="60vh" columns='[{"prop":"name","name":"Skill","width":150},{"prop":"formula","name":"Formula","width":120},{"prop":"cost","name":"Cost","width":64,"align":"center"},{"prop":"limit","name":"Limit","width":64,"align":"center"},{"prop":"bef","name":"BEF","width":56,"align":"center"},{"prop":"covers","name":"Covers","width":440}]'></foresight-table></p>
 
   </article>
   <nav class="doc-nav" aria-label="Documentation">
   <ul>
-    <li><details><summary><a href="/foresight-2026/core/">Core Rules</a></summary>
+    <li><details open><summary><a href="/foresight-2026/core/">Core Rules</a></summary>
     <ul>
       <li><a href="/foresight-2026/introduction/">Introduction</a></li>
       <li><a href="/foresight-2026/the-one-rule/">The One Rule</a></li>
@@ -46,7 +45,7 @@
       <li><a href="/foresight-2026/scores/">Scores</a></li>
       <li><a href="/foresight-2026/quality-ratings/">Quality Ratings &amp; Yield</a></li>
       <li><a href="/foresight-2026/open-ended-resolution/">Open-Ended Resolution</a></li>
-      <li><a href="/foresight-2026/skills/">Skills</a></li>
+      <li><a href="/foresight-2026/skills/" aria-current="page" class="current">Skills</a></li>
       <li><a href="/foresight-2026/character-builder/">Character Builder</a></li>
     </ul>
     </details></li>
@@ -78,7 +77,7 @@
       <li><a href="/foresight-2026/playtest-pack/">ForeSight — Playtest Pack</a></li>
     </ul>
     </details></li>
-    <li><a href="/foresight-2026/" aria-current="page" class="current">ForeSight 2026</a></li>
+    <li><a href="/foresight-2026/">ForeSight 2026</a></li>
   </ul>
   </nav>
   <ul class="doc-navbar">

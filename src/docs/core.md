@@ -11,4 +11,5 @@ The heart of the system: how to resolve anything, and how to make a character.
 - [Quality Ratings & Yield](/quality-ratings/)
 - [Open-Ended Resolution](/open-ended-resolution/)
 - [Skills](/skills/)
+- [Character Builder](/character-builder/)
 <!-- /toc -->

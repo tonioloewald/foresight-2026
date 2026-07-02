@@ -11,6 +11,9 @@ Abortive Previous Attempt/
 # scratch
 *.tmp
 
+# build artifact emitted at repo root (the served copy is docs/llms.txt)
+/llms.txt
+
 # build / deps
 node_modules/
 dist/

@@ -1,6 +1,8 @@
-# CLAUDE.md — ForeSight 2026
+# CLAUDE.md
 
-Context for any AI agent (Claude Code, Cowork, etc.) continuing this project. Read this first, then `Design Document.md` (the design bible) and `REVIEW.md` (the running to-fix list).
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+**ForeSight 2026.** Context for any AI agent (Claude Code, Cowork, etc.) continuing this project. Read this first, then `Design Document.md` (the design bible) and `REVIEW.md` (the running to-fix list).
 
 ## What this is
 
@@ -15,6 +17,7 @@ Legacy source PDFs/HTML live in `Legacty/` and `Abortive Previous Attempt/` (git
 - **Dev:** `bun run tls` once (needs `mkcert`), then `bun run dev` → live-rebuild HTTPS server at `https://localhost:1986/` (watches `README.md`, `src/`, `static/`).
 - **Deploy:** `bun run build` then commit `docs/` and push. GitHub Pages is set to serve from `/docs`. Repo: `github.com/tonioloewald/foresight-2026`.
 - First time / after pulling: `rm -rf docs && bun install`.
+- **No tests, linter, or formatter are configured** (`package.json` has only `build`/`dev`/`tls` scripts). Don't hunt for a test runner — validate changes by building and loading the dev site. The build also emits a `demo/` dir (created by `build.ts`/`dev.ts`).
 
 ### Important environment caveat (Cowork sandbox only)
 The Cowork sandbox mounts the repo on a filesystem that **denies `unlink`**, so `git` and the build's `rm -rf docs` both FAIL there. In the sandbox: build in `/tmp` (copy source there, `npx bun build.ts`) and never run `git` (it leaves stale `.git/*.lock` files). On a normal machine (Tonio's Mac) everything works normally. Do not run `git` from the sandbox.

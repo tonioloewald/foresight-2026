@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Hide the pre-rendered body until <tosi-doc-system> hydrates, then fade it
+       in — avoids the layout shift as the static markup is swapped for the live
+       doc browser. <noscript> keeps it visible for no-JS readers/crawlers; the
+       timeout is a safety net so a failed/slow hydration can't leave it blank. -->
+  <style>body{opacity:0;transition:opacity .25s ease}</style>
+  <noscript><style>body{opacity:1!important}</style></noscript>
+  <script>setTimeout(function(){if(document.body)document.body.style.opacity='1'},4000)</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="/foresight-2026/doc-system.css" data-tosi-doc-system />
+  <title>ForeSight — GM Cheat Sheet — ForeSight 2026</title>
+  <meta name="description" content="EF ladder: 0 — ¼ — ½ — 1 — 2 — 3 … 15. (0 = impossible, 15 = automatic.) Add all modifiers, then apply." />
+  <link rel="canonical" href="https://tonioloewald.github.io/foresight-2026/foresight-2026/gm-cheat-sheet/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="ForeSight 2026" />
+  <meta property="og:title" content="ForeSight — GM Cheat Sheet — ForeSight 2026" />
+  <meta property="og:description" content="EF ladder: 0 — ¼ — ½ — 1 — 2 — 3 … 15. (0 = impossible, 15 = automatic.) Add all modifiers, then apply." />
+  <meta property="og:url" content="https://tonioloewald.github.io/foresight-2026/foresight-2026/gm-cheat-sheet/" />
+  <meta name="twitter:card" content="summary" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"ForeSight — GM Cheat Sheet","description":"EF ladder: 0 — ¼ — ½ — 1 — 2 — 3 … 15. (0 = impossible, 15 = automatic.) Add all modifiers, then apply.","url":"https://tonioloewald.github.io/foresight-2026/foresight-2026/gm-cheat-sheet/","inLanguage":"en","isPartOf":{"@type":"WebSite","name":"ForeSight 2026","url":"https://tonioloewald.github.io/foresight-2026"}}</script>
+  <link rel="icon" href="/foresight-2026/favicon.svg" />
+</head>
+<body>
+  <tosi-doc-system docs="/foresight-2026/docs.json" config="{&quot;projectName&quot;:&quot;ForeSight 2026&quot;}">
+  <article class="doc-content">
+<h1>ForeSight — GM Cheat Sheet</h1>
+<!--{ "parent": "reference", "order": 1 }-->
+
+<h2>The One Rule</h2>
+<blockquote>
+<p><strong>Success Chance = Score × Ease Factor.</strong> Roll <strong>D100 ≤ SC</strong> to succeed.</p>
+</blockquote>
+<p><strong>EF ladder:</strong> 0 — ¼ — ½ — 1 — 2 — 3 … 15. (0 = impossible, 15 = automatic.) Add all modifiers, <em>then</em> apply.</p>
+<p><strong>A +1 EF is worth your whole Score</strong> in the sweet spot (Score 15: EF 5→6 = 75%→90%), ~half at the ¼/½ rungs. Keep modifiers small.</p>
+<p><strong>Rule of thumb:</strong> <code>+5</code> trivial · <code>+3</code> very easy · <code>+1</code> easy · <code>0</code> average · <code>−1</code> hard · <code>−3</code> very hard · <code>−5</code> extreme · <code>−7</code> near-impossible. <em>(Just remember +5 easy / −5 hard.)</em></p>
+<h2>Quality Ratings</h2>
+<table>
+<thead>
+<tr>
+<th>Roll vs SC</th>
+<th>QR</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>≤ SC/10</td>
+<td><strong>QR1</strong></td>
+</tr>
+<tr>
+<td>≤ SC/4</td>
+<td><strong>QR2</strong></td>
+</tr>
+<tr>
+<td>≤ SC/2</td>
+<td><strong>QR3</strong></td>
+</tr>
+<tr>
+<td>≤ SC</td>
+<td><strong>QR4</strong></td>
+</tr>
+<tr>
+<td>&gt; SC</td>
+<td><strong>QR7</strong> (fail)</td>
+</tr>
+<tr>
+<td>&gt; SC &amp; a multiple of 10</td>
+<td><strong>QR10</strong> (botch)</td>
+</tr>
+</tbody></table>
+<p><em>Caps: a 100 is never better than QR7; a 99 never better than QR4.</em></p>
+<p><strong>Yield %:</strong> QR1 <strong>100</strong> · QR2 <strong>80</strong> · QR3 <strong>50</strong> · QR4 <strong>25</strong> (failures yield as QR4).
+<strong>Read one column only:</strong> <em>Yield</em> (how much) · <em>Time</em> (QR4 ≈ 200% of estimate) · <em>PM</em> = <strong>4 − QR</strong>. Never penalize the same choice twice (pay the EF up front, the success includes it).</p>
+<h2>Open-Ended Resolution</h2>
+<ul>
+<li><strong>Oppose:</strong> both roll, <strong>compare QRs</strong> — better wins; <strong>equal cancels</strong> (just-barely block; keep going); break ties by Score only if forced.</li>
+<li><strong>Block (how much got through):</strong> defense ≥ attack negates; else attack drops <strong>(5 − defending QR)</strong> notches; failed defense = full; QR10 defense = attack one notch <em>worse</em>.</li>
+<li><strong>Build on a result:</strong> <strong>+(5 − QR)</strong> as an EF <em>modifier</em> (QR1 +4 … QR4 +1); opposing a standing result, same as a penalty.</li>
+</ul>
+<h2>Damage</h2>
+<blockquote>
+<p><strong>Damage = Yield × (DC ÷ 2)</strong> ⟶ wound levels.  (Large/tough target: <strong>÷ Damage Scale</strong>.)</p>
+</blockquote>
+<p><strong>DC anchors:</strong> inhumanly-strong fist <strong>4</strong> · 9mm pistol <strong>8</strong> · 7.62 rifle <strong>11</strong>.
+<strong>Types:</strong> M melee · I impact · B beam. <strong>P</strong>n weapon pierces n DC of armor; armor <strong>A</strong> absorbs 1 damage.
+<strong>Hit location:</strong> roll D10, or call the shot for an up-front EF penalty (covers cover, too).</p>
+<h2>Combat (sequence)</h2>
+<ol>
+<li><strong>Awareness → Initiative.</strong> Surprised → Startled → Alert → Ready → Lying-in-wait; modify for big factors (can&#39;t see = bad). Sets the roll.</li>
+<li><strong>Declare best → worst Init</strong> (ties by Score): each chooses <strong>Act</strong> or <strong>Wait</strong>. Waiting <em>persists</em> across rounds — the unaware get no declaration turn 1 (ambush!).</li>
+<li><strong>React / pre-empt:</strong> a waiter reacting may go just after — or <strong>pre-empt</strong> (Coordination roll modified by Initiative QR, ties by Init Score) to go just before. <em>Nobody is ever certain they act first.</em></li>
+<li><strong>Your turn:</strong> one <strong>Primary</strong> + one <strong>Secondary</strong> action (no AP budget; throughput = skill &amp; body).</li>
+<li><strong>Reactions</strong> (parry/dodge/flinch/cover): unlimited, <strong>cumulative −2 each</strong>.</li>
+</ol>
+<p><em>Round ≈ 3–5 s (longer for vehicles). Spread attacks — a hurt/stunned foe is far less dangerous than a dead-or-healthy one.</em></p>
+<h2>Wounds, Stun &amp; Exhaustion</h2>
+<p><strong>Wound level</strong> 0→8(dead); <strong>−(level) to everything</strong>. New damage adds on. Pain Resistance (EN <em>or</em> WP) on a hit → shrug / <strong>Shaken</strong> (−2, one action) / <strong>Stunned</strong> (only recover-from-stun; QR1 clears, QR10 KO).
+<strong>Convalescence:</strong> roll EN/WP at the level&#39;s interval (Light daily, Med 5d, Heavy 20d, Critical+ every 30 min/5 min/min) — success drops a level, QR10 raises; worst-level penalty until healed/treated.</p>
+<p><strong>Exhaustion</strong> (fatigue, mana, etc.): hard exertion → EN/WP check, fail = <strong>+1 level</strong>. <strong>Full</strong> penalty to its own domain, <strong>half</strong> to all else, tracks <strong>stack</strong> (round half up). Clears by <strong>rest, one level at a time</strong> — depth 1 = breather, 2 = long break, 3 = sleep, 4 = near-coma, 5+ = intervention. 4+ converts to wounds.</p>
+<p><strong>Power pools</strong> (Mana/Piety/Spirit): gather roll → success = free · marginal/fail = +1 exhaustion · QR10 = fizzle + exhaustion. <strong>Push it:</strong> take a level for a one-off <strong>+4</strong>.</p>
+
+  </article>
+  <nav class="doc-nav" aria-label="Documentation">
+  <ul>
+    <li><details><summary><a href="/foresight-2026/core/">Core Rules</a></summary>
+    <ul>
+      <li><a href="/foresight-2026/introduction/">Introduction</a></li>
+      <li><a href="/foresight-2026/the-one-rule/">The One Rule</a></li>
+      <li><a href="/foresight-2026/creating-characters/">Creating Characters</a></li>
+      <li><a href="/foresight-2026/scores/">Scores</a></li>
+      <li><a href="/foresight-2026/quality-ratings/">Quality Ratings &amp; Yield</a></li>
+      <li><a href="/foresight-2026/open-ended-resolution/">Open-Ended Resolution</a></li>
+      <li><a href="/foresight-2026/skills/">Skills</a></li>
+      <li><a href="/foresight-2026/character-builder/">Character Builder</a></li>
+    </ul>
+    </details></li>
+    <li><details><summary><a href="/foresight-2026/conflict/">Conflict</a></summary>
+    <ul>
+      <li><a href="/foresight-2026/combat/">Combat</a></li>
+      <li><a href="/foresight-2026/pursuit/">Pursuit</a></li>
+      <li><a href="/foresight-2026/damage/">Damage</a></li>
+      <li><a href="/foresight-2026/wounds-and-recovery/">Wounds &amp; Recovery</a></li>
+      <li><a href="/foresight-2026/power-pools/">Power Pools</a></li>
+    </ul>
+    </details></li>
+    <li><details><summary><a href="/foresight-2026/world/">Equipment &amp; World</a></summary>
+    <ul>
+      <li><a href="/foresight-2026/equipment/">Equipment</a></li>
+      <li><a href="/foresight-2026/the-svu/">The SVU</a></li>
+      <li><a href="/foresight-2026/technology-levels/">Technology Levels</a></li>
+    </ul>
+    </details></li>
+    <li><details><summary><a href="/foresight-2026/magic/">Magic</a></summary>
+    <ul>
+      <li><a href="/foresight-2026/magic-applications/">Magic — Applications by Fundamental</a></li>
+    </ul>
+    </details></li>
+    <li><details open><summary><a href="/foresight-2026/reference/">Reference</a></summary>
+    <ul>
+      <li><a href="/foresight-2026/gm-cheat-sheet/" aria-current="page" class="current">ForeSight — GM Cheat Sheet</a></li>
+      <li><a href="/foresight-2026/character-sheet-paper/">ForeSight — Character Sheet</a></li>
+      <li><a href="/foresight-2026/playtest-pack/">ForeSight — Playtest Pack</a></li>
+    </ul>
+    </details></li>
+    <li><a href="/foresight-2026/">ForeSight 2026</a></li>
+  </ul>
+  </nav>
+  <ul class="doc-navbar">
+    <li><a href="https://github.com/tonioloewald/foresight-2026">GitHub</a></li>
+  </ul>
+  </tosi-doc-system>
+  <script src="/foresight-2026/iife.js"></script>
+</body>
+</html>

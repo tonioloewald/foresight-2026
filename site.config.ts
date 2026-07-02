@@ -10,8 +10,9 @@ export default defineSiteConfig({
   sectionsDir: 'src/docs',
   staticDirs: ['static'],
   bundleEntry: 'bundle.ts',
+  epub: { author: 'Tonio Loewald' }, // emit foresight-2026.epub into docs/ on every build
   host: 'static',
   port: 1986,                 // dev server (https://localhost:1986/)
-  watchPaths: ['./static'],   // also rebuild when data/ or character.html change
+  watchPaths: ['./static'],   // also rebuild when data/*.json change
   navbarLinks: [{ label: 'GitHub', href: 'https://github.com/tonioloewald/foresight-2026' }],
 } as any)
