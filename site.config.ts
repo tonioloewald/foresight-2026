@@ -14,5 +14,7 @@ export default defineSiteConfig({
   host: 'static',
   port: 1986,                 // dev server (https://localhost:1986/)
   watchPaths: ['./static'],   // also rebuild when data/*.json change
-  navbarLinks: [{ label: 'GitHub', href: 'https://github.com/tonioloewald/foresight-2026' }],
+  // NOTE: `icon` is required in practice — a navbar link without one renders
+  // class="" and tosijs-ui's element builder throws on the empty class token.
+  navbarLinks: [{ label: 'GitHub', icon: 'github', href: 'https://github.com/tonioloewald/foresight-2026' }],
 } as any)
