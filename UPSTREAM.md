@@ -9,10 +9,21 @@ When one lands: mark `✅ RESOLVED (fixed in <pkg>@<version>)` here **and close 
 
 ---
 
-## OPEN — tosijs-ui: ePub internal cross-links are dead
+## FIXED UPSTREAM, PENDING RELEASE — tosijs-ui: ePub internal cross-links are dead
 
-**Issue:** https://github.com/tonioloewald/tosijs-ui/issues/15
+**Issue:** https://github.com/tonioloewald/tosijs-ui/issues/15 (closed)
 **Raised:** 2026-07-17, against tosijs-ui 1.6.23
+**Fixed in:** tosijs-ui **1.7.0** (`buildEpub` gained a `rewriteInBookLinks` pass) — **not yet
+published.** npm `latest` is 1.6.23, `beta` is 1.7.0-beta.1 (predates the fix, which is in
+beta.5). We are still on 1.6.23, so the book still has dead cross-links today.
+
+> **TODO when 1.7.0 ships:** `bun add -d tosijs-ui@^1.7.0`, `bun run build`, unzip the ePub and
+> confirm **zero** `/slug/` hrefs remain (`grep -oh 'href="/[^"#][^"]*"' OEBPS/*.xhtml | sort -u`),
+> then clear the REVIEW → Book output item and delete this entry. One residual to eyeball: the fix
+> rewrites only targets **in the same book**, and leaves out-of-book links untouched — so our one
+> deliberate exclusion (`character-builder.md`) stays a dead `/character-builder/` link in whatever
+> chapters point at it. That's arguably fine (the page is web-only), but decide whether to drop
+> those links from the book text or accept them.
 
 **Context.** `buildEpub` writes each doc's rendered markdown into its chapter unchanged, so
 internal links stay as site paths (`href="/combat/"`). Inside the book they resolve to nothing.
