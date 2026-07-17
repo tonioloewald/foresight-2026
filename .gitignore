@@ -20,3 +20,7 @@ dist/
 demo/
 bun.lock
 tls/
+
+# generated JS source maps in the served site — never tracked (debug artifacts,
+# and hydrate.js.map alone is >1MB). The .js they map IS committed.
+docs/**/*.map
