@@ -5,12 +5,7 @@
 // colliding with the doc-system theme. Data (skills, background factors) loads
 // from static/data/*.json — the single source of truth shared with the rules.
 
-// Resolve the site root from the loaded IIFE script so `data/` resolves under any
-// basePath (GitHub project page, custom domain, local dev) — same trick as bundle.ts.
-const SITE_ROOT = (() => {
-  try { return new URL('.', (document.currentScript as HTMLScriptElement).src) }
-  catch { return new URL('./', location.href) }
-})()
+import { SITE_ROOT } from './site-root'
 
 const ATTRS = ['ST', 'EN', 'CO', 'IN', 'PC', 'WP', 'AP']
 const ARCH: Record<string, Record<string, number>> = {

@@ -2,13 +2,7 @@ import 'tosijs-ui'
 import { tosiTable } from 'tosijs-ui'
 import './src/character-sheet' // registers <foresight-character-sheet>
 import { ENTITY_SPECS, fmt, slug, ALL_TAGS, type EntitySpec } from './src/entity-specs'
-
-// Resolve the site root from the loaded IIFE script, so data paths work under
-// any basePath (GitHub project page, custom domain, or local dev).
-const SITE_ROOT = (() => {
-  try { return new URL('.', (document.currentScript as HTMLScriptElement).src) }
-  catch { return new URL('./', location.href) }
-})()
+import { SITE_ROOT } from './src/site-root'
 
 /**
  * <foresight-table src="skills.json" columns='[…]'>
