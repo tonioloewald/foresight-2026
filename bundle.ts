@@ -1,6 +1,7 @@
 import 'tosijs-ui'
 import { tosiTable } from 'tosijs-ui'
 import './src/character-sheet' // registers <foresight-character-sheet>
+import { ENTITY_SPECS, fmt, slug, ALL_TAGS, type EntitySpec } from './src/entity-specs'
 
 // Resolve the site root from the loaded IIFE script, so data paths work under
 // any basePath (GitHub project page, custom domain, or local dev).
@@ -9,31 +10,177 @@ const SITE_ROOT = (() => {
   catch { return new URL('./', location.href) }
 })()
 
-// <foresight-table src="skills.json" columns='[...]' height="60vh"></foresight-table>
-// Loads docs/data/<src> and renders it as a sortable tosi-table. (Card/detail
-// views to follow.)
+/**
+ * <foresight-table src="skills.json" columns='[…]'>
+ *   …static table + detail cards, generated at build time by entity-views.ts…
+ * </foresight-table>
+ *
+ * The static content is the SUBSTRATE, not an afterthought: it is what the
+ * ePub/print edition reads (a book runs no JS), and what stays on screen if the
+ * fetch fails. In a browser this upgrades it to an interactive entity view —
+ * summary or cards, with a text + tag filter.
+ */
 class ForesightTable extends HTMLElement {
   private _init = false
+  private _rows: any[] = []
+  private _view: 'summary' | 'cards' = 'summary'
+  private _query = ''
+  private _tags = new Set<string>()
+  private _body: HTMLElement | null = null
+  private _spec: EntitySpec | undefined
+
   async connectedCallback() {
     if (this._init) return
     this._init = true
+
     const file = this.getAttribute('src')
-    if (!file) { this.textContent = 'foresight-table: no src'; return }
+    if (!file) return // nothing to enhance — leave the static content alone
+    this._spec = ENTITY_SPECS[file]
+    const staticHTML = this.innerHTML
+
     try {
       const data = await (await fetch(new URL('data/' + file, SITE_ROOT).href)).json()
-      const array = Array.isArray(data) ? data : (data.rows || [])
-      const colsAttr = this.getAttribute('columns')
-      const table = tosiTable({
-        array,
-        columns: colsAttr ? JSON.parse(colsAttr) : undefined,
-        rowHeight: 34,
-      }) as HTMLElement
-      table.style.height = this.getAttribute('height') || '60vh'
-      table.style.display = 'block'
-      this.append(table)
+      this._rows = Array.isArray(data) ? data : data.rows || []
+      if (!this._rows.length) return // keep the substrate rather than blank the page
+      this._body = document.createElement('div')
+      this.replaceChildren(this.buildToolbar(), this._body)
+      this.render()
     } catch (e) {
-      this.textContent = 'foresight-table: failed to load ' + file
+      // The book's own view beats an error message.
+      this.innerHTML = staticHTML
     }
+  }
+
+  private presentTags(): string[] {
+    const present = new Set<string>()
+    for (const row of this._rows) for (const t of row.tags || []) present.add(t)
+    return ALL_TAGS.filter((t) => present.has(t))
+  }
+
+  private buildToolbar(): HTMLElement {
+    const bar = document.createElement('div')
+    bar.className = 'ev-bar'
+
+    const views = document.createElement('div')
+    views.className = 'ev-views'
+    for (const v of ['summary', 'cards'] as const) {
+      const b = document.createElement('button')
+      b.type = 'button'
+      b.className = 'ev-toggle'
+      b.textContent = v === 'summary' ? 'Summary' : 'Cards'
+      b.setAttribute('aria-pressed', String(this._view === v))
+      b.onclick = () => {
+        this._view = v
+        for (const other of Array.from(views.children)) other.setAttribute('aria-pressed', 'false')
+        b.setAttribute('aria-pressed', 'true')
+        this.render()
+      }
+      views.append(b)
+    }
+    bar.append(views)
+
+    const search = document.createElement('input')
+    search.type = 'search'
+    search.className = 'ev-search'
+    search.placeholder = 'Filter…'
+    search.oninput = () => {
+      this._query = search.value.trim().toLowerCase()
+      this.render()
+    }
+    bar.append(search)
+
+    const tags = this.presentTags()
+    if (tags.length > 1) {
+      const chips = document.createElement('div')
+      chips.className = 'ev-tags'
+      for (const t of tags) {
+        const chip = document.createElement('button')
+        chip.type = 'button'
+        chip.className = 'ev-chip'
+        chip.textContent = t
+        chip.setAttribute('aria-pressed', 'false')
+        chip.onclick = () => {
+          if (this._tags.has(t)) this._tags.delete(t)
+          else this._tags.add(t)
+          chip.setAttribute('aria-pressed', String(this._tags.has(t)))
+          this.render()
+        }
+        chips.append(chip)
+      }
+      bar.append(chips)
+    }
+    return bar
+  }
+
+  /** No selected tags = show everything (the tag toggles are a narrowing tool). */
+  private filtered(): any[] {
+    return this._rows.filter((row) => {
+      if (this._tags.size && !(row.tags || []).some((t: string) => this._tags.has(t))) return false
+      if (!this._query) return true
+      const body = this._spec?.body ? row[this._spec.body] : ''
+      return [row.name, body, ...(row.tags || [])].join(' ').toLowerCase().includes(this._query)
+    })
+  }
+
+  private render() {
+    if (!this._body) return
+    const rows = this.filtered()
+    this._body.replaceChildren()
+
+    if (!rows.length) {
+      const empty = document.createElement('p')
+      empty.className = 'ev-empty'
+      empty.textContent = 'Nothing matches that filter.'
+      this._body.append(empty)
+      return
+    }
+
+    if (this._view === 'cards' && this._spec) {
+      const grid = document.createElement('div')
+      grid.className = 'ev-cards'
+      for (const row of rows) grid.append(this.card(row, this._spec))
+      this._body.append(grid)
+      return
+    }
+
+    const colsAttr = this.getAttribute('columns')
+    const table = tosiTable({
+      array: rows,
+      columns: colsAttr ? JSON.parse(colsAttr) : undefined,
+      rowHeight: 34,
+    }) as HTMLElement
+    table.style.height = this.getAttribute('height') || '60vh'
+    table.style.display = 'block'
+    this._body.append(table)
+  }
+
+  private card(row: any, spec: EntitySpec): HTMLElement {
+    const section = document.createElement('section')
+    section.className = 'ev-card'
+    section.id = `${spec.idPrefix}-${slug(row.name)}`
+
+    const title = document.createElement('h3')
+    title.textContent = row.name
+    section.append(title)
+
+    const dl = document.createElement('dl')
+    dl.className = 'ev-fields'
+    for (const field of spec.card) {
+      const dt = document.createElement('dt')
+      dt.textContent = field.label
+      const dd = document.createElement('dd')
+      dd.textContent = fmt(row[field.prop])
+      dl.append(dt, dd)
+    }
+    section.append(dl)
+
+    if (spec.body && row[spec.body]) {
+      const p = document.createElement('p')
+      p.className = 'ev-body'
+      p.textContent = row[spec.body]
+      section.append(p)
+    }
+    return section
   }
 }
 if (!customElements.get('foresight-table')) customElements.define('foresight-table', ForesightTable)

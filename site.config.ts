@@ -1,6 +1,11 @@
 import { defineSiteConfig } from 'tosijs-ui/site'
+import { renderEntityViews } from './entity-views'
 
 export default defineSiteConfig({
+  // Render static tables + detail cards from static/data/*.json into the rules
+  // pages BEFORE doc extraction, so the book (which ships no JS) has real HTML.
+  // <foresight-table> then enhances it in the browser. See entity-views.ts.
+  prebuild: renderEntityViews,
   name: 'ForeSight 2026',
   description: 'A streamlined modern edition of the ForeSight tabletop RPG.',
   baseUrl: 'https://tonioloewald.github.io/foresight-2026',
@@ -11,6 +16,16 @@ export default defineSiteConfig({
   staticDirs: ['static'],
   bundleEntry: 'bundle.ts',
   epub: { author: 'Tonio Loewald' }, // emit foresight-2026.epub into docs/ on every build
+  // The book is a curated subset/sequence of the site — the site still shows everything.
+  book: {
+    // README is the home page (pinned top in nav) but sorted LAST in the book;
+    // name it here so it leads as front matter.
+    order: ['README'],
+    // The character builder is pure JS with no static substrate — a stub chapter
+    // in a book, so it stays out. (`skills.md` is IN: entity-views.ts renders its
+    // table + cards at build time, so it's real HTML in the ePub.)
+    exclude: ['character-builder.md'],
+  },
   host: 'static',
   port: 1986,                 // dev server (https://localhost:1986/)
   watchPaths: ['./static'],   // also rebuild when data/*.json change
