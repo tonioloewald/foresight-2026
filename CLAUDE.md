@@ -1,20 +1,50 @@
 # CLAUDE.md
 
+> **Shared engineering practices** live at
+> **https://github.com/tonioloewald/tosijs-coding-practices** — and, when checked out beside
+> this repo, at [`../tosijs-coding-practices`](../tosijs-coding-practices/README.md). Read that
+> index first for the cross-project defaults (development, testing, code quality, performance,
+> review, releasing, deployment, and the **observant** tosijs/tjs stack). This file records only
+> what is **specific to or divergent from** those defaults — when they conflict, this file wins.
+>
+> Those docs are **living, not graven in stone.** Don't rewrite them unprompted, but do speak up:
+> voice concerns, flag inconsistencies, and suggest improvements as you work. Continuous
+> improvement is the goal — see the repo's `CONTRIBUTING.md`.
+>
+> **This repo is mostly a *book*, not a library** — the deliverable is rules prose, a data layer,
+> and a static site/ePub. So the practices bite unevenly: `cross-project.md` (this project
+> consumes tosijs-ui and files issues against it — see `UPSTREAM.md`), `code-quality.md` and
+> `web-components.md` (`bundle.ts`, `src/character-sheet.ts`, `entity-views.ts`) apply directly.
+> `testing.md` / `releasing.md` largely don't — there is no test runner and nothing is published
+> to npm; the build + a look at the dev site is the gate. Don't import ceremony this repo has no
+> use for; do import the reasoning.
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 **ForeSight 2026.** Context for any AI agent (Claude Code, Cowork, etc.) continuing this project. Read this first, then `Design Document.md` (the design bible) and `REVIEW.md` (the running to-fix list).
 
+**Talking to other repos:** file a GitHub issue on the target repo — never edit it from here — and mirror it in `UPSTREAM.md` with the issue URL. See `cross-project.md`.
+
 ## What this is
 
-A streamlined, modern edition of **ForeSight**, a general-purpose tabletop RPG by Tonio Loewald (1st ed. 1986, ISBN 0958789401). This edition builds on the unpublished **2004 2nd-edition draft** and the 1986 original, with the combat/initiative sequence lifted from the 2015 "ForePlay" experiment. Goal: one resolution rule, rules you can run from memory, a character buildable in minutes.
+A streamlined, modern edition of **ForeSight**, a general-purpose tabletop RPG by Tonio Loewald (1st ed. 1986, ISBN 0958789401). Goal: one resolution rule, rules you can run from memory, a character buildable in minutes.
+
+### Source hierarchy (which edition wins)
+
+1. **2004 2nd-edition draft — the base text.** Extensively edited, modernized, and proofread. The rules derive from it: text, structure, terminology.
+2. **2026 simplifications override it** where already decided — power pools/fatigue as exhaustion levels, familiarities cut to examples, generalized combat, 9→7 attributes. See Design Document → "Decided simplifications".
+3. **1986 original = a content quarry**, not a rules source. Mine it for material 2004 dropped, and for tone — but assume anything taken from it **needs revision and updating**.
+4. **2015 "ForePlay"** contributes the combat/initiative sequence only. Its dice and four-attribute model are a blind alley.
+
+> **The caveat that matters:** 2004 has editorial quality but **zero table evidence** — it was never playtested. 1986 shipped and got played. So "2004 is the base text" must not quietly become "2004's numbers win": where the two disagree on a **number or a probability**, that's an untested 2004 intention meeting 1986's empirical weight. Flag it as a REVIEW.md calibration item rather than defaulting. Prose and structure: 2004, no argument.
 
 Legacy source PDFs/HTML live in `Legacty/` and `Abortive Previous Attempt/` (gitignored — large, copyrighted). The 2004 magic rules HTML under `Legacty/foresight2004/magic/fundamentals/` is the source for the magic catalog.
 
 ## How to work on it
 
-- **Author content** in `src/` and `static/` (NOT in `docs/`, which is generated).
-- **Build:** `bun run build` → generates `docs/` (the static site Pages serves). Bun-only (the doc-system uses `Bun.build`/`Bun.write`/`$`).
-- **Dev:** `bun run tls` once (needs `mkcert`), then `bun run dev` → live-rebuild HTTPS server at `https://localhost:1986/` (watches `README.md`, `src/`, `static/`).
+- **Author content** in `src/` and `static/` (NOT in `docs/`, which is generated — every file under it is build output).
+- **Build:** `bun run build` (= `bun build.ts`) → generates `docs/` (the static site Pages serves) **and** `docs/foresight-2026.epub`. Bun-only (the doc-system uses `Bun.build`/`Bun.write`/`$`). The ePub step needs `happy-dom` (a devDep) and the `zip` CLI (present on macOS).
+- **Dev:** `bun run tls` once (needs `mkcert`), then `bun run dev` → live-rebuild HTTPS server at `https://localhost:1986/` (watches `README.md`, `src/`, `static/`). `dev` sets `BASE_PATH=` so the site serves at local root instead of the `/foresight-2026` project-page path.
 - **Deploy:** `bun run build` then commit `docs/` and push. GitHub Pages is set to serve from `/docs`. Repo: `github.com/tonioloewald/foresight-2026`.
 - First time / after pulling: `rm -rf docs && bun install`.
 - **No tests, linter, or formatter are configured** (`package.json` has only `build`/`dev`/`tls` scripts). Don't hunt for a test runner — validate changes by building and loading the dev site. The build also emits a `demo/` dir (created by `build.ts`/`dev.ts`).
@@ -24,11 +54,27 @@ The Cowork sandbox mounts the repo on a filesystem that **denies `unlink`**, so 
 
 ## Architecture (see Design Document.md → "Delivery, hosting & persistence")
 
+**One source (`src/` + `static/`) must produce two outputs: a live interactive site AND a distributable book (ePub/PDF).** That constraint drives most of what follows.
+
+- **`site.config.ts`** is the single knob for the whole build: `docPaths` (`src`, `README.md`), `sectionsDir` (`src/docs`), `staticDirs` (`static`), `bundleEntry` (`bundle.ts`), `outputDir` (`docs`), `basePath`, `epub`, dev `port`/`watchPaths`. Change the site's shape here, not in `build.ts` (which is four lines: `buildSite(config)`).
 - **Single source of truth = JSON** in `static/data/` (`skills`, `background-factors`, `fields`, `magic-fundamentals`, `magic-applications`). Consumed by both the rules pages and the character sheet. Build copies it to `docs/data/`.
-- **Doc site** = tosijs-ui doc-system (`tosijs-ui/site`). Markdown one-pagers in `src/rules/*.md`, each with a metadata block **after its H1**: `<!--{ "parent": "<section>", "order": N }-->`. Section "parent" pages in `src/docs/{core,conflict,world,magic,reference}.md`. `README.md` is the home page (`"pin":"top"`).
-- **`bundle.ts`** (the `bundleEntry`) imports `tosijs-ui` and defines `<foresight-table src="X.json" columns='[…]' height>` — fetches `static/data/X.json` (path self-resolves from the loaded script, so basePath-agnostic) and renders a sortable `tosi-table`. This will grow into an *entity-view* component with **card/detail views** and a **tag filter** (see REVIEW).
-- **Character editor:** currently `static/character.html` (standalone, rule-enforcing, localStorage + JSON export, fetches `data/`). To be componentized onto tosijs + Tonio's forthcoming **Firestore backend** (fine-grained security) so players save characters online and GMs host campaigns with custom rulesets.
+- **Doc site** = tosijs-ui doc-system (`tosijs-ui/site`). Markdown one-pagers in `src/rules/*.md`, each with a metadata block **after its H1**: `<!--{ "parent": "<section>", "order": N }-->` (fractional `order` is fine — `character-builder.md` uses 3.5 to slot between neighbours). Section "parent" pages in `src/docs/{core,conflict,world,magic,reference}.md`. `README.md` is the home page (`"pin":"top"`).
+- **`bundle.ts`** (the `bundleEntry`) imports `tosijs-ui`, imports `./src/character-sheet`, and defines `<foresight-table>`. Both it and `character-sheet.ts` resolve their data URLs from `document.currentScript.src`, so paths survive any `basePath` (project page, custom domain, local dev) — **keep that trick when adding fetches**.
+- **Entity views — the static substrate.** The book ships **zero JS** (no `iife.js`, no `<script>` in any chapter), so a custom element renders as an empty shell there. Therefore: `entity-views.ts` runs from `site.config`'s **`prebuild`** (which the orchestrator calls *before* doc extraction) and renders `static/data/*.json` into a limited-column `<table>` + per-item detail cards, written into the `<!-- entity-view: X.json -->` / `<!-- /entity-view -->` block in the page (same idiom as the doc-system's own `<!-- toc -->`). `<foresight-table>` then **enhances** that substrate in the browser (summary/cards toggle, text + tag filter) and restores it if the fetch fails. `src/entity-specs.ts` holds the summary/card projection and is imported by **both** sides so they can't drift.
+  - **Author flow:** add a spec to `src/entity-specs.ts`, drop an `<!-- entity-view: X.json -->` marker in the page, build. Never hand-edit inside the block — it's regenerated.
+  - **Never let the book depend on a custom element.** If you add one to a rules page, give it a static substrate or exclude the page from `book`.
+- **Character editor** = `src/character-sheet.ts` (~500 lines), a Shadow-DOM `<foresight-character-sheet>` element registered via `bundle.ts` and embedded in `src/rules/character-builder.md`. Rule-enforcing; localStorage (key `foresight_characters_v2`) + JSON export; loads skills/BFs from `data/`. Shadow DOM is deliberate — its generic CSS (`body`/`h1`/`table`) would otherwise collide with the doc-system theme. (It was ported from a standalone `static/character.html`, now gone; ignore older references to that file.) Next: Tonio's forthcoming **Firestore backend** (fine-grained security) so players save characters online and GMs host campaigns with custom rulesets.
+- **Custom elements are inert in the ePub/PDF.** Anything rendered by JS is blank in the book, so every custom element needs real fallback content between its tags (see `character-builder.md`, which falls back to a link to the printable sheet). The planned fix for data tables is build-time static HTML: a limited-column `<table>` whose rows link to per-item detail cards, which the web build then enhances with sort/filter/tag toggles.
+- **PDF = a print button, not Playwright.** `tosijs-ui/site` exports `buildPdf`, but it needs Chromium; the chosen path is print-optimized book HTML with a "Save as PDF" button. Don't add a headless-browser dependency.
 - **Future:** all major entity collections become Firestore-backed (author fixes propagate; GMs add content). Data model = base (author) → GM/community custom → per-campaign overrides. So keep data **mergeable/overridable** and each character a **self-contained record**. Keep every entity JSON shaped with a summary projection (table) AND a detail body (card).
+
+### Gotchas
+- A `navbarLinks` entry **must** have an `icon` — without one the doc-system emits `class=""` and tosijs-ui's element builder throws on the empty class token, crashing the page render.
+- **A custom element at the start of a Markdown line gets wrapped in a `<p>`.** marked only treats *known* block-level tags as raw HTML, so `<foresight-table>` is parsed as inline — and because a `<div>` may not sit inside a `<p>`, the browser then hoists the element's whole static substrate *out* of it, leaving it empty. This fails **silently** (the page looks fine; the element is just hollow). Always open a generated block with a real `<div>`, and keep **no blank line** inside it (a blank line ends the raw-HTML block and drops back to markdown).
+- **`prebuild` writes into `src/`, which the dev server watches**, so a `bun run build` while `bun run dev` is up makes the two fight: the dev server holds the `entity-views` module it loaded *at startup* and will regenerate the block with stale code, silently reverting your edit. Restart the dev server after touching `entity-views.ts` / `entity-specs.ts`. (The generator only writes when bytes actually change, so it doesn't loop.)
+- **`bun run dev` does not do an initial build** — it serves `docs/`. And `docs/` built by `bun run build` carries the *production* basePath (`/foresight-2026`), so the dev server at root serves pages requesting `/foresight-2026/iife.js` → 404 HTML → `SyntaxError: Unexpected token '<'` and nothing registers. For local work build with `BASE_PATH= bun build.ts` first — **and rebuild with plain `bun run build` before committing**, since `docs/` is the deployed artifact.
+- The ePub currently ships **coverless**: the build prints `epub: no cover generated — @resvg/resvg-js is unavailable`. Fix by `bun add -d @resvg/resvg-js` (renders one from the title) or by setting `epub.cover` to an image. Harmless for now, but a real book needs a cover.
+- `outputDir` (`docs`) must not overlap `docPaths`/`staticDirs` — `buildSite()` `rm -rf`s the output dir first, so an overlap deletes your source. There's an output-guard in tosijs-ui that catches this.
 
 ## The system in brief (full detail in Design Document.md)
 
@@ -50,8 +96,8 @@ Every data entity carries `tags` from `{standard, ancient, modern, sf, fantasy}`
 
 ## Status / what's next (see REVIEW.md for the live list)
 
-Done: all rules one-pagers drafted and migrated into the doc-system with sections; full data layer (skills/BFs/fields/magic) as tagged JSON; the **232-application magic catalog** named + formatted; the rule-enforcing character sheet; the doc-system site + live `foresight-table` + dev server.
-Open (high level): `foresight-table` card/detail views + tag filter; swap remaining static tables to `<foresight-table>`; **draft the Magic one-pager**; componentize the character editor onto Firestore; recover Sense §16A3/§16A5 / fix duplicate magic codes; playtest-calibrate the point economy.
+Done: all rules one-pagers drafted and migrated into the doc-system with sections; full data layer (skills/BFs/fields/magic) as tagged JSON; the **232-application magic catalog** named + formatted; the doc-system site + live `foresight-table` + dev server; the character sheet componentized into `<foresight-character-sheet>` and embedded in a rules page; **ePub emitted on every build**; Sense §16A3/§16A5 recovered.
+Open (high level): static/build-time rendering for `foresight-table` (so tables survive the book) + card/detail views + tag filter; swap remaining static Markdown tables over to it; **draft the Magic one-pager** (plus NPCs, Interpersonal, Travel, Religion, Ch'i, equipment lists, Advancement); the print-to-PDF button; move the sheet from localStorage to Firestore; fix duplicate magic codes (Summon §20A4, Time §23A6) and the OCR-mangled scaling formulas; playtest-calibrate the point economy.
 
 ## Conventions / preferences
 

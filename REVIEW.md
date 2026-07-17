@@ -10,7 +10,17 @@ Running list of things to revisit. Grouped by area; check off as resolved.
 - [ ] **Scaling / Variable formulas** are rough OCR/encoding artifacts (tab-delimited columns came through as stray apostrophes, e.g. `Z'inflicts DC2Z+3'`). Need a human pass to restore the intended "base vs. scaled" columns. Descriptions themselves are clean.
 - [ ] Spot-check the **auto-generated names** (124 were invented) and rename to taste.
 
+## Book output (ePub / print)
+- [x] ~~Static build-time table rendering~~ **Done** — `entity-views.ts` runs from `site.config`'s `prebuild` (before doc extraction) and renders `static/data/*.json` into a limited-column `<table>` + per-item detail cards, so the book gets real HTML. `<foresight-table>` now *enhances* that substrate (summary/cards toggle, text + tag filter) instead of replacing a blank element. `skills.md` is back in the book (20 rows, 20 cards, 20 working row→card anchors, zero JS).
+- [ ] **All internal cross-links are dead in the ePub** — chapters carry absolute site paths (`href="/gm-cheat-sheet/"`) and `tosijs-ui`'s epub builder does no `/slug/` → `slug.xhtml` rewriting. Upstream tosijs-ui gap, not a config error. (Same-page `#skill-*` anchors are fine — only cross-chapter links break.)
+- [ ] **Swap the remaining collections to entity views** — add specs to `src/entity-specs.ts` for `background-factors`, `fields`, `magic-fundamentals`, then replace the hand-written Markdown tables in the one-pagers with `<!-- entity-view: … -->` blocks. (`magic-applications.json` is nested — 23 fundamentals × 232 applications — so it needs a grouped renderer, not the flat one.)
+- [ ] `character-builder.md` stays excluded from the book (`site.config.ts` → `book.exclude`): pure JS, no static substrate, so it's a stub chapter in print.
+
+## Source-edition conflicts (2004 vs 1986)
+- [ ] Where the 2004 draft and the 1986 original disagree on a **number or probability**, log it here rather than defaulting to 2004 — 2004 was never playtested, 1986 shipped. (Prose/structure: 2004 wins, no argument. See CLAUDE.md → Source hierarchy.)
+
 ## Calibration — test in play, then tune
+- [ ] **Simultaneous Action ladder** (0 / −1,−2 / −2,−3,−4) — magnitudes inherited from the reaction ladder, so plausibly calibrated, but the planned-vs-unplanned split (declared tasks share the ladder; unplanned reactions pay flat −2 each) is new and untested. Does the n=3 tier ever get chosen, or is it purely a deterrent? See Design Document §7a.
 - [ ] **Background-factor slot budget** (default 4) and which factors are free vs. 1 slot.
 - [ ] **Point economy magnitudes** — attribute 10/20 curve, skill `cost×(L+2)`, fields 4/yr. The whole economy shrank (fewer attrs, fewer/cheaper skills, no E/G familiarity buys, minor buys → quirks); budgets/grants likely need to come down.
 - [ ] **Skill Cost 1-vs-2 split** is provisional.
