@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Hide the pre-rendered body until <tosi-doc-system> hydrates, then fade it
-       in — avoids the layout shift as the static markup is swapped for the live
-       doc browser. <noscript> keeps it visible for no-JS readers/crawlers; the
-       timeout is a safety net so a failed/slow hydration can't leave it blank. -->
-  <style>body{opacity:0;transition:opacity .25s ease}</style>
-  <noscript><style>body{opacity:1!important}</style></noscript>
-  <script>setTimeout(function(){if(document.body)document.body.style.opacity='1'},4000)</script>
+  <!-- NB: the body is NOT hidden until hydration. It used to be (body opacity 0 +
+       a 4s safety-net timeout), because an undefined custom element is
+       display:inline, so the pre-rendered page stacked as bare text and hydration
+       reflowed the whole thing. The cost was a blank screen for as long as the
+       bundle took — ~4.5s on a cheap phone, for content already in the HTML. The
+       tosi-doc-system:not(:defined) rules in the stylesheet now lay the static page
+       out as though the chrome were there, so hydration only ADDS the chrome and
+       nothing moves. Paint immediately; don't hide readable content. -->
+  <!-- Theme, applied BEFORE first paint. Now that we paint the static page rather
+       than hiding it, a dark-mode reader would otherwise get a flash of the light
+       theme until the bundle lands and sets body.darkmode. CSS alone can't do this:
+       an explicit theme choice lives in localStorage. Mirrors applyThemePrefs()
+       (doc-system.ts) — keep the two in step. Fails safe: any error leaves the
+       light default, exactly as before. -->
+  <script>
+    try {
+      var p = JSON.parse(localStorage.getItem('tosi-doc-system-prefs') || '{}')
+      var t = p.theme || 'system'
+      if (t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches))
+        document.documentElement.classList.add('darkmode')
+      if (p.highContrast) document.documentElement.classList.add('high-contrast')
+    } catch (e) {}
+  </script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -83,53 +99,53 @@
   </article>
   <nav class="doc-nav" aria-label="Documentation">
   <ul>
-    <li><details><summary><a href="/foresight-2026/core/">Core Rules</a></summary>
+    <li><details><summary><a class="doc-link" href="/foresight-2026/core/">Core Rules</a></summary>
     <ul>
-      <li><a href="/foresight-2026/introduction/">Introduction</a></li>
-      <li><a href="/foresight-2026/the-one-rule/">The One Rule</a></li>
-      <li><a href="/foresight-2026/creating-characters/">Creating Characters</a></li>
-      <li><a href="/foresight-2026/scores/">Scores</a></li>
-      <li><a href="/foresight-2026/quality-ratings/">Quality Ratings &amp; Yield</a></li>
-      <li><a href="/foresight-2026/open-ended-resolution/">Open-Ended Resolution</a></li>
-      <li><a href="/foresight-2026/skills/">Skills</a></li>
-      <li><a href="/foresight-2026/character-builder/">Character Builder</a></li>
+      <li><a class="doc-link" href="/foresight-2026/introduction/">Introduction</a></li>
+      <li><a class="doc-link" href="/foresight-2026/the-one-rule/">The One Rule</a></li>
+      <li><a class="doc-link" href="/foresight-2026/creating-characters/">Creating Characters</a></li>
+      <li><a class="doc-link" href="/foresight-2026/scores/">Scores</a></li>
+      <li><a class="doc-link" href="/foresight-2026/quality-ratings/">Quality Ratings &amp; Yield</a></li>
+      <li><a class="doc-link" href="/foresight-2026/open-ended-resolution/">Open-Ended Resolution</a></li>
+      <li><a class="doc-link" href="/foresight-2026/skills/">Skills</a></li>
+      <li><a class="doc-link" href="/foresight-2026/character-builder/">Character Builder</a></li>
     </ul>
     </details></li>
-    <li><details open><summary><a href="/foresight-2026/conflict/">Conflict</a></summary>
+    <li><details open><summary><a class="doc-link" href="/foresight-2026/conflict/">Conflict</a></summary>
     <ul>
-      <li><a href="/foresight-2026/combat/">Combat</a></li>
-      <li><a href="/foresight-2026/pursuit/" aria-current="page" class="current">Pursuit</a></li>
-      <li><a href="/foresight-2026/damage/">Damage</a></li>
-      <li><a href="/foresight-2026/wounds-and-recovery/">Wounds &amp; Recovery</a></li>
-      <li><a href="/foresight-2026/power-pools/">Power Pools</a></li>
+      <li><a class="doc-link" href="/foresight-2026/combat/">Combat</a></li>
+      <li><a class="doc-link current" href="/foresight-2026/pursuit/" aria-current="page">Pursuit</a></li>
+      <li><a class="doc-link" href="/foresight-2026/damage/">Damage</a></li>
+      <li><a class="doc-link" href="/foresight-2026/wounds-and-recovery/">Wounds &amp; Recovery</a></li>
+      <li><a class="doc-link" href="/foresight-2026/power-pools/">Power Pools</a></li>
     </ul>
     </details></li>
-    <li><details><summary><a href="/foresight-2026/world/">Equipment &amp; World</a></summary>
+    <li><details><summary><a class="doc-link" href="/foresight-2026/world/">Equipment &amp; World</a></summary>
     <ul>
-      <li><a href="/foresight-2026/equipment/">Equipment</a></li>
-      <li><a href="/foresight-2026/the-svu/">The SVU</a></li>
-      <li><a href="/foresight-2026/technology-levels/">Technology Levels</a></li>
+      <li><a class="doc-link" href="/foresight-2026/equipment/">Equipment</a></li>
+      <li><a class="doc-link" href="/foresight-2026/the-svu/">The SVU</a></li>
+      <li><a class="doc-link" href="/foresight-2026/technology-levels/">Technology Levels</a></li>
     </ul>
     </details></li>
-    <li><details><summary><a href="/foresight-2026/magic/">Magic</a></summary>
+    <li><details><summary><a class="doc-link" href="/foresight-2026/magic/">Magic</a></summary>
     <ul>
-      <li><a href="/foresight-2026/magic-applications/">Magic — Applications by Fundamental</a></li>
+      <li><a class="doc-link" href="/foresight-2026/magic-applications/">Magic — Applications by Fundamental</a></li>
     </ul>
     </details></li>
-    <li><details><summary><a href="/foresight-2026/reference/">Reference</a></summary>
+    <li><details><summary><a class="doc-link" href="/foresight-2026/reference/">Reference</a></summary>
     <ul>
-      <li><a href="/foresight-2026/gm-cheat-sheet/">ForeSight — GM Cheat Sheet</a></li>
-      <li><a href="/foresight-2026/character-sheet-paper/">ForeSight — Character Sheet</a></li>
-      <li><a href="/foresight-2026/playtest-pack/">ForeSight — Playtest Pack</a></li>
+      <li><a class="doc-link" href="/foresight-2026/gm-cheat-sheet/">ForeSight — GM Cheat Sheet</a></li>
+      <li><a class="doc-link" href="/foresight-2026/character-sheet-paper/">ForeSight — Character Sheet</a></li>
+      <li><a class="doc-link" href="/foresight-2026/playtest-pack/">ForeSight — Playtest Pack</a></li>
     </ul>
     </details></li>
-    <li><a href="/foresight-2026/">ForeSight 2026</a></li>
+    <li><a class="doc-link" href="/foresight-2026/">ForeSight 2026</a></li>
   </ul>
   </nav>
   <ul class="doc-navbar">
     <li><a href="https://github.com/tonioloewald/foresight-2026" data-icon="github">GitHub</a></li>
   </ul>
   </tosi-doc-system>
-  <script src="/foresight-2026/iife.js"></script>
+  <script type="module" src="/foresight-2026/hydrate.js"></script>
 </body>
 </html>
