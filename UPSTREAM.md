@@ -22,6 +22,23 @@ and both residuals are `/character-builder/` — the one page we deliberately ex
 > stable 1.7.0 ships:** move to `^1.7.0`. Residual decision for the 2 out-of-book links: either drop
 > them from `README.md` / the core-section text, or accept them (the character builder is web-only).
 
+## ⚠️ OPEN — tosijs-ui: out-of-book ePub links are dead (want: point them at the live site)
+
+**Issue:** https://github.com/tonioloewald/tosijs-ui/issues/17 (Tonio implements — do not edit tosijs-ui from here)
+**Raised:** 2026-07-18, against tosijs-ui 1.7.0-beta.5. Follow-up to #15.
+
+The 2 residual `/character-builder/` links (home page + auto-generated core TOC) are dead in the
+ePub because `character-builder.md` is `book.exclude`d and `rewriteInBookLinks` leaves out-of-book
+links untouched. Proposed fix: a book base URL (`epub.baseUrl`, defaulting to `baseUrl`) and
+absolutizing recognized-but-out-of-book paths to `bookBaseUrl + pathForSlug(slug)`. Issue #17 has
+the full implementation sketch (exact lines, the test to update).
+
+> **When #17 lands and we consume it:** set `epub: { …, baseUrl: 'https://foresight-rpg.com' }` in
+> `site.config.ts` (leaving the site's own `baseUrl`/`basePath` on github.io untouched, so the live
+> site's canonicals stay correct). The 2 links then point at `foresight-rpg.com/character-builder/`
+> and go live when the DNS does. Verify: unzip the ePub, `grep -oh 'href="[^"]*character-builder[^"]*"' OEBPS/*.xhtml`
+> should show the absolute URL, not `/character-builder/`.
+
 ## ⚠️ OPEN — tosijs-ui: no runtime basePath for bundleEntry code
 
 **Issue:** https://github.com/tonioloewald/tosijs-ui/issues/16
