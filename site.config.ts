@@ -15,7 +15,10 @@ export default defineSiteConfig({
   sectionsDir: 'src/docs',
   staticDirs: ['static'],
   bundleEntry: 'bundle.ts',
-  epub: { author: 'Tonio Loewald' }, // emit foresight-2026.epub into docs/ on every build
+  // emit foresight-2026.epub into docs/ on every build. `cover` is the committed,
+  // web-optimized export (1414×2000, ~585KB) of the Affinity master in legacy/
+  // (gitignored). Title defaults to `name` ("ForeSight 2026").
+  epub: { author: 'Tonio Loewald', cover: 'static/cover.jpg' },
   // The book is a curated subset/sequence of the site — the site still shows everything.
   book: {
     // README is the home page (pinned top in nav) but sorted LAST in the book;

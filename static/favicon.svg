@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ForeSight">
+  <!-- First pass: white F on an ice-blue tile. Colors are easy to tweak —
+       fill is the ice blue, the path fill is the F. -->
+  <rect width="64" height="64" rx="13" fill="#5cb0dd"/>
+  <path d="M21 15 H45 V26 H32 V31 H41 V40 H32 V50 H21 Z"
+        fill="#ffffff" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+</svg>
