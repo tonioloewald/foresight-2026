@@ -3,7 +3,7 @@
 **/.DS_Store
 
 # Legacy source materials — large binaries / originals, kept out of the public repo
-Legacty/
+legacy/
 Abortive Previous Attempt/
 *.afphoto
 *.key

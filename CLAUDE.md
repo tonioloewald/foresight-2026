@@ -38,7 +38,7 @@ A streamlined, modern edition of **ForeSight**, a general-purpose tabletop RPG b
 
 > **The caveat that matters:** 2004 has editorial quality but **zero table evidence** — it was never playtested. 1986 shipped and got played. So "2004 is the base text" must not quietly become "2004's numbers win": where the two disagree on a **number or a probability**, that's an untested 2004 intention meeting 1986's empirical weight. Flag it as a REVIEW.md calibration item rather than defaulting. Prose and structure: 2004, no argument.
 
-Legacy source PDFs/HTML live in `Legacty/` and `Abortive Previous Attempt/` (gitignored — large, copyrighted). The 2004 magic rules HTML under `Legacty/foresight2004/magic/fundamentals/` is the source for the magic catalog.
+Legacy source PDFs/HTML live in `legacy/` and `Abortive Previous Attempt/` (gitignored — large, copyrighted). The 2004 magic rules HTML under `legacy/foresight2004/magic/fundamentals/` is the source for the magic catalog.
 
 ## How to work on it
 
