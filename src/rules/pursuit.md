@@ -1,7 +1,7 @@
 # Pursuit
-<!--{ "parent": "conflict", "order": 2 }-->
+<!--{ "parent": "conflict", "order": 3 }-->
 
-*One-pager. Pursuit is just **Combat** — same awareness, Initiative, act-or-wait, reaction, and pre-emption — with a different menu of actions. If you know the Combat page, you already know this one.*
+*One-pager. Pursuit is just **combat at a longer tempo** — same awareness, [Initiative](/initiative/), act-or-wait, reaction and pre-emption, and the same [Intense Action](/intense-action/) split of attention — with a different menu of actions. Know those two pages and you already know this one.*
 
 A pursuit is any contest of movement: a car chase, a dogfight, a horseback flight, a submarine running silent, a foot-race through a crowd. Spacecraft are no exception — they're just vehicles.
 

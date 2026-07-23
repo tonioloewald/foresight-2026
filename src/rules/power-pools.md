@@ -1,5 +1,5 @@
 # Power Pools
-<!--{ "parent": "conflict", "order": 5 }-->
+<!--{ "parent": "conflict", "order": 6 }-->
 
 *One-pager. Magic, divine intervention, and mystic disciplines all draw on a **power pool** — but a pool isn't a counter you spend down, it's an **exhaustion track** exactly like fatigue. You don't tally points; you roll to **gather** power, and a track of exhaustion grows when you reach too hard. See Wounds & Recovery for the parent mechanism; this page is the magical sibling.*
 

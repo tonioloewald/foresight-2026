@@ -4,7 +4,8 @@
 Combat, pursuit, damage, and the things that wear a character down.
 
 <!-- toc -->
-- [Combat](/combat/)
+- [Initiative](/initiative/)
+- [Intense Action](/intense-action/)
 - [Pursuit](/pursuit/)
 - [Damage](/damage/)
 - [Wounds & Recovery](/wounds-and-recovery/)

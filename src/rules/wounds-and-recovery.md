@@ -1,5 +1,5 @@
 # Wounds & Recovery
-<!--{ "parent": "conflict", "order": 4 }-->
+<!--{ "parent": "conflict", "order": 5 }-->
 
 *One-pager. Injury and fatigue are tracked as **levels**, like everything fragile in this game. Two tables tell the story: **Impact** (what a wound does to you now) and **Recovery** (the much slower business of getting better). Toughness rolls — resisting pain and convalescence — are made on **Endurance *or* Willpower** (the player's choice: some people are physically tough, some just refuse to quit). Pain resistance and stamina are **not skills** — you roll the raw attribute.*
 

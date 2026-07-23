@@ -58,20 +58,17 @@ fragile — it hardcodes the doc-system's asset names (`hydrate.js`, `doc-system
 > exported `siteRoot()`/`withBase()`), replace the DOM-sniffing in `src/site-root.ts` with it and
 > drop the fragile filename coupling.
 
-**Context.** `buildEpub` writes each doc's rendered markdown into its chapter unchanged, so
-internal links stay as site paths (`href="/combat/"`). Inside the book they resolve to nothing.
-Every cross-reference in `docs/foresight-2026.epub` is dead — 21 links across 6 chapters — even
-though 19 of the 20 distinct targets exist as `<slug>.xhtml` in the same OEBPS dir.
+## ⚠️ OPEN — tosijs-ui: fractional `order` mis-sorts (nav sorts lexically)
 
-**20 of the 21 are links tosijs-ui generated itself**, via the auto-regenerated `<!-- toc -->`
-blocks on our section pages (`src/docs/{core,conflict,world,magic,reference}.md`).
+**Issue:** https://github.com/tonioloewald/tosijs-ui/issues/24
+**Raised:** 2026-07-24, against tosijs-ui 1.7.0-beta.5 (hit splitting a section page in two).
 
-**Suggestion.** A `rewriteInternalLinks(d, slugMap)` transform composed into the existing
-`htmlToXhtml(html, win, transform)` hook in `epub.js`'s chapter loop — `slugMap` / `fileFor` are
-already in scope there. Two flagged decisions: the `transform` is currently gated on `baseUrl`
-(a link rewriter must run regardless), and `book.exclude` means a target may not be in the book
-at all (our `character-builder.md` case).
+`navSortKey` builds the sort key as `String(order).padStart(4,'0')` and compares lexically, so a
+fractional order like `1.5` → `"01.5"` sorts *after* `"0002"` — silently landing at the end of the
+section instead of between `1` and `2`. Suggested a numeric multi-key comparator.
 
-**Local impact.** Same-page `#skill-*` anchors are fine; only cross-chapter links break. We are
-not working around it — post-processing our own built EPUB seemed worse than reporting it. Until
-it lands, don't trust in-book cross-references. Tracked in `REVIEW.md` → Book output.
+**Workaround:** integer `order` only; renumber the tail to insert between neighbours.
+
+> **Local cleanup owed:** `character-builder.md` still has a stale `order: 3.5` and mis-sorts to
+> the end of `core`. Fix to an integer when `core` is reorganized (see REVIEW — it's blocked on the
+> `quality-ratings`/`open-ended-resolution` removal, which renumbers core anyway).

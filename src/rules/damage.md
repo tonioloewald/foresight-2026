@@ -1,5 +1,5 @@
 # Damage
-<!--{ "parent": "conflict", "order": 3 }-->
+<!--{ "parent": "conflict", "order": 4 }-->
 
 *One-pager. A hit is resolved by the One Rule like anything else; the **Quality Rating** of the hit, the weapon's **Damage Class**, and the target's **armor** decide how much damage is done. Damage feeds **Wounds & Recovery**.*
 
