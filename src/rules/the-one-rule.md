@@ -1,61 +1,116 @@
 # The One Rule
 <!--{ "parent": "core", "order": 2 }-->
 
-To play ForeSight you really only need to learn one rule. It's called **resolution**, and it's used whenever someone wants to do something (perform a *task*) and the GM doesn't know for sure whether it's completely impossible or trivially easy.
+*To play ForeSight you learn **one** rule. It's called **resolution**, and it runs every uncertain thing anyone attempts — a **task** — from picking a lock to winning a trial. Everything else in this book is that rule applied to a situation, or an example of applying it. Learn this page and you can run the game from memory.*
 
-## Abilities, Scores, and Base Ease Factors
+## The core
 
-Each of a character's abilities — attributes (innate abilities such as strength and perception) and skills (trained abilities such as lockpicking and skiing) — has a **Score** and a **Base Ease Factor (BEF)**.
+Every ability — an **attribute** (innate, like Strength or Perception) or a **skill** (trained, like Firearms or Stealth) — has a **Score** and a **Base Ease Factor (BEF)**.
 
-Typically, scores range from 1 (hopelessly poor) through 10–15 (competent) to 20 or higher (very good). BEFs are typically around 5. Skills can get far better than attributes.
+- **Score** is how good you are: 1 is hopeless, 10–15 is competent, 20+ is very good. Skills climb far higher than attributes.
+- **BEF** is how forgiving the ability is by nature — usually around 5.
 
-A score above 20 is counted as 20, but gets an ease factor modifier of +1 for every three points by which it exceeds 20: a score of 23–25 is written 20+1, 26–28 is 20+2, and so on. This is what lets the truly skilled achieve things lesser mortals have absolutely no hope of achieving.
+To resolve a task, judge how hard *this particular* attempt is as an **ease-factor modifier**, add it to the BEF to get the **Ease Factor (EF)**, and multiply:
 
-## Resolving a Task
+> ### SC = Score × Ease Factor
+> Roll **D100**. Roll ≤ your Success Chance and you succeed.
 
-To resolve a task, the GM decides which ability is being used and how difficult the task is. (A given task might be performed with one of several abilities: a locksmith might open a lock using technical skill, a thief might pick it, a welder might cut it out of the door.)
+*Amy fires a stun pistol at a suspect. Firearms BEF 3; the suspect is 12 m off (−2 range) and moving (−2), but she braced (+1), aimed (+1), and the pistol is well-balanced (+1). EF = 3 − 2 − 2 + 1 + 1 + 1 = **2**. Her Firearms Score is 17, so SC = 2 × 17 = **34%**. That is about as complicated as it ever gets.*
 
-The difficulty of the specific situation is an **ease factor modifier** — usually the sum of several modifiers. Practiced all night on an identical lock? Positive modifier. Excellent picks? Positive. In a hurry, wounded, lock of unusual quality? Negative, negative, negative.
+## How ease factors work
 
-The **success chance** is the Score multiplied by the Ease Factor (the BEF plus all modifiers):
+Ease factors aren't a linear scale at the bottom — they run:
 
-> **SC = Score × Ease Factor**
+> **0 — ¼ — ½ — 1 — 2 — 3 — 4 — 5 — 6 — 7 — 8 — 9 — 10 — 11 — 12 — 13 — 14 — 15**
 
-Roll D100. If the roll is less than or equal to the SC, the task succeeds.
+Adding a modifier moves right along the ladder, subtracting moves left. **Sum every modifier first, then apply it** (6 + 10 − 4 is 6 + 6 = 12, not 15 − 4). EF can't fall below **0** (flatly impossible) or rise above **15** (as easy as things get). A Score over 20 counts as 20 but adds **+1 EF per 3 points above** — written 20+1 (23–25), 20+2 (26–28)… — which is how the truly gifted do what lesser mortals simply cannot.
 
-*E.g. Amy is trying to shoot a suspect with her stun pistol. The BEF of Firearms is 3, but the suspect is 12m away (–2 for range) and moving (–2). Amy has braced to fire (+1) and aimed (+1), and the stun pistol is well balanced (+1 performance modifier). So the ease factor is 3 – 2 – 2 + 1 + 1 + 1 = 2. Amy's Firearms score is 17, so her SC = 2 × 17 = 34%. This is about as complicated as it ever gets — and it's the only rule you need to know.*
+**One step is a big lever, and it scales with skill.** In the sweet spot, **+1 EF adds your whole Score to the SC** — Score 15 going EF 5→6 jumps 75%→90%. Down at the ¼/½ rungs a step is worth about half your Score. Two consequences: modifiers stay **small** (a typical situational modifier is ±1 or ±2 — each is already potent), and the same good conditions help a skilled character *more*, which is exactly right.
 
-## Ease Factor Arithmetic
+*Fractions round to nearest (½ or more rounds up): Score 13 at EF ¼ → 3.25 → roll ≤ 3.*
 
-Adding and subtracting ease factors is ordinary arithmetic except below 1. The ease factors are:
+### Competence at a glance
 
-> 0 — 0.25 — 0.5 — 1 — 2 — 3 — 4 — 5 — 6 — 7 — 8 — 9 — 10 — 11 — 12 — 13 — 14 — 15
+What a Score buys you on an ordinary task (a typical BEF ≈ 5, no modifiers):
 
-Adding moves right; subtracting moves left. A BEF of 4 with a –5 modifier becomes 0.25. Ease factors cannot drop below 0 (impossible) or rise above 15 (as easy as it gets). Sum all modifiers *before* applying them: 6 + 10 – 4 is 6 + (10 – 4) = 12, not 15 – 4.
+| Score | Who they are | SC on an average task |
+|---|---|---:|
+| 5 | rank amateur | 25% |
+| 10 | capable | 50% |
+| 15 | seasoned professional | 75% |
+| 20 | expert | 100% |
+| 20+3 (26+) | master — fails only on a 99–00 | over 100% |
 
-## Rule of Thumb
+### Challenge at a glance
 
-> **+5 is really easy. –5 is really hard. 0 is impossible.**
+What the situation is worth. This table is *really all you need to remember* — every other modifier in the book is an example of it.
 
-A GM who internalizes that needs almost nothing else. If a situation deserves a modifier, decide how far it sits between "trivial" and "heroic" and pick a number between +5 and –5.
+| The task is… | Modifier |
+|---|---:|
+| Trivially easy | +5 |
+| Very easy | +3 |
+| Relatively easy | +1 |
+| Average | +0 |
+| Relatively hard | −1 |
+| Very hard | −3 |
+| Extremely hard | −5 |
+| Near impossible | −7 |
 
-## What a Modifier Is Worth
+Modifiers **accumulate**, and can run past either end: wounded *and* firing at a small, distant, dodging target with a badly-made gun can pile well below −7. So it should be.
 
-Because the success chance is Score × EF, one step on the ladder is a strong lever — and its value scales with how good you are:
+## Success comes in degrees — Quality Ratings
 
-- **In the sweet spot (integer EFs), +1 EF adds your whole Score to the success chance.** A character with Score 15 going from EF 5 to EF 6 improves from 75% to 90% — a full +15.
-- **At the low rungs (¼, ½), +1 step is worth about half your Score**, because the steps themselves are smaller.
+One roll tells you *whether* and *how well*. Read the **Quality Rating (QR)** off where your roll fell under the SC:
 
-Two things follow. Modifiers stay *small* — a typical situational modifier is ±1 or ±2, not the big numbers other systems throw around — because each one is already potent. And the same +1 helps a more skilled character *more* in absolute terms, which is exactly right: good equipment and good conditions reward competence.
+| Your roll | QR | |
+|---|---|---|
+| ≤ SC ÷ 10 | **QR1** | brilliant |
+| ≤ SC ÷ 4 | **QR2** | good |
+| ≤ SC ÷ 2 | **QR3** | solid |
+| ≤ SC | **QR4** | scraped through |
+| > SC | **QR7** | failure |
+| > SC and a multiple of 10 | **QR10** | fumble — it went *wrong* |
 
-## Rounding
+Two hard limits: a roll of **00 is never better than QR7** (even a near-certainty can fail), and **99 is never better than QR4** (you can always succeed, never brilliantly, on a 99). *(The character sheet's Resolution Table precomputes the four thresholds so you never divide at the table.)*
 
-Fractions round to nearest unless otherwise stated: 0.5 or more rounds up, less than 0.5 rounds down. A skill of 13 at ease factor 0.25 gives SC = 3.25 → 3: roll 3 or less on D100.
+### Read one column: fast, good, or much
 
-## Quality Ratings
+**A QR1 is quick *or* superb *or* plentiful — never all three.** Decide before you roll what was at stake, and read only that column:
 
-Success and failure come in degrees. How *well* you rolled relative to your success chance yields a **Quality Rating (QR)** — QR1 is a barely adequate scrape-through and QR4 is as good as it gets, with corresponding grades of failure on the other side. QRs are how the One Rule answers every follow-up question: How much damage? Who won the arm wrestle? How long did it take? How convinced is the Duke?
+- **Yield — how *much*?** QR1 **100%**, QR2 **80%**, QR3 **50%**, QR4 **25%** of the maximum. Damage, intel gathered, ground covered, gold panned, rope salvaged. *(Damage = Yield × Damage Class ÷ 2.)*
+- **Time — how *fast*?** QR4 takes roughly twice a competent estimate; QR1 is done in a flash. This is what answers *"did you pick it before the guard rounded the corner?"*
+- **Product (PM) — how *good*, for later?** When a task makes something used in a *later* task, carry it forward as **PM = 4 − QR**: QR1 → +3 … QR4 → +0, QR7 → −3. (That's why the scale is numbered 1-2-3-4-7-10.)
 
-The full treatment — including opposed tasks, blocking, and using one task's QR as the next task's modifier — is in the Resolution chapter. For now it's enough to know that one roll tells you whether *and* how well.
+**Never penalize the same choice twice.** If you took a penalty to do it a certain way, *success already includes that thing*. Pick the lock fast under a haste penalty and a plain success **means you were fast** — no separate Time roll on top. Call the head-shot at a penalty and a hit **lands where you aimed**. Pay once, up front.
 
-*Designer's Note: the resolution system is adapted from Victory Games' James Bond 007 — in my view the finest published RPG of its era — generalized, and then beaten into its present shape by four decades of play. It is not negotiable. A cleverer-looking dice engine was once built to replace it; the probabilities looked fine on paper and it failed at the table. The power of Score × EF is that the value is a percentage. People understand percentages intuitively, and they understand multiplication intuitively too.*
+**Half of all successes are QR4** — twice the time, a quarter of the take — and that's just life: the plumbing rarely gets fixed *well*. When a result is hidden (was the alarm well-installed?), a **failure yields and takes time exactly as a QR4** would; the dice stay quiet and the GM knows.
+
+### Speed answers "why can't I just try again?"
+
+No special rule needed. **A failure already spent the time** — a QR7 eats ~200% of the estimate, same as a QR4 success — so retrying isn't free, and when time matters the guard is coming. **A QR10 shuts the door**: you've fouled the approach (snapped the pick, convinced yourself the safe turns the wrong way) — find another way. The worst-to-best conga line never forms.
+
+## Opposed resolution — oppose or build
+
+Tasks rarely stand alone. Two moves cover every chain:
+
+- **Oppose — both roll, compare QRs; the better QR wins.** A big gap is a rout, a small gap a narrow win, and **equal QRs cancel** — the blow *just* parried, the tail *almost* spotted. That's a feature: nothing decisive happens, the tension holds, you keep going, and a string of ties is a long taut struggle. If someone *must* act now, the higher Score edges it.
+- **Build — a prior result feeds the next as a modifier: +(5 − QR).** QR1 → +4 … QR4 → +1. The follow-up still uses its own ability and BEF, nudged by what came before. Opposing a *standing* result instead (hacking a system someone built well)? Take the same value as a penalty.
+
+## Worked examples
+
+- **Picking a lock** — Lockpicking (or Sleight of Hand) vs a difficulty for the lock's quality, minus haste, plus good picks. Time is usually the real stake: take the haste penalty and success *is* beating the guard.
+- **Fixing an engine — a chain.** First **diagnose** it: a Knowledge task (the relevant field, with Perception or Intelligence to read the symptoms). The diagnosis is the *product* that feeds the fix (**PM = 4 − QR**) — a spot-on read (QR1) is **+3** to the repair; a botched one (QR7) sends you chasing the wrong fault at **−3**. The repair may still be hard for its own reasons (access, a seized bolt), and its **Yield** is how much you restore — capped at *as good as before*. So: **+3 to *do* the repair from a perfect diagnosis, never +3 to the thing repaired.** A repair only restores.
+- **Hot-rodding it** — the same **plan-then-execute** chain (plan the modification as a Knowledge task; the plan feeds the execution), but where a repair only restores, hot-rodding *improves* a chosen quality at a **tradeoff** — and it's the book's clearest picture of what a QR actually *means*:
+  - **QR1–2** — the gain, with the tradeoff shrunk or gone; maybe a little extra on top.
+  - **QR4** — the gain *and* the full tradeoff: quicker off the line, worse through the bends (the normal deal).
+  - **QR7** — all downside, no upside: you paid the price and got nothing.
+  - **QR10** — you broke it completely.
+- **Persuading the Duke** — Charm (or Confidence) opposed by his resolve (WP, or Confidence if he's arguing back). Compare QRs; the gap is *how* convinced. A tie: he wavers but won't commit — yet.
+- **Picking a pocket** — Sleight of Hand opposed by the mark's Perception. Reaching for a guarded inside pocket is a penalty *and* a called outcome: succeed and you got *that* pocket.
+- **Sneaking past** — Stealth opposed by their Perception (or Search, if they're actively looking). A tie means they sense *something* and can't place it.
+
+## Random QR
+
+When you need a QR out of nowhere — area damage catching a bystander, how well an unseen NPC did their job — roll **D10**: **1**→QR1, **2**→QR2, **3–5**→QR3, **6–10**→QR4.
+
+*Designer's Note: resolution is adapted from Victory Games' James Bond 007 — the finest published RPG of its era — generalized, then beaten into shape by four decades of play. It is not negotiable: a cleverer-looking dice engine was built to replace it, looked fine on paper, and failed at the table. Score × EF works because the value is a **percentage**, and people understand percentages and multiplication in their bones. The QR scale is the secret engine — combat damage, a chase's gained ground, an interrogation's leaked truth, a forged passport's quality are all "read the QR in the column that matters." Learn these two things and the rest of the book is examples.*
