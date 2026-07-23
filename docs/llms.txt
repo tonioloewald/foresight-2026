@@ -13,8 +13,6 @@ Full documentation, with live code examples, is at the links below.
 
 - https://tonioloewald.github.io/foresight-2026/character-builder/ — Character Builder
   The interactive, rule-enforcing character builder — the same rules as [Creating Characters](/creating-characters/), l...
-- https://tonioloewald.github.io/foresight-2026/combat/ — Combat
-  Combat runs in **rounds** — brief bursts of violence separated by waiting for someone to make a move. There is no act...
 - https://tonioloewald.github.io/foresight-2026/conflict/ — Conflict
   Combat, pursuit, damage, and the things that wear a character down.
 - https://tonioloewald.github.io/foresight-2026/core/ — Core Rules
@@ -35,6 +33,10 @@ Full documentation, with live code examples, is at the links below.
   A **score = formula + level** (see Scores). Formulas use the seven attributes **ST, EN, CO, IN, PC, WP, AP**. Each sk...
 - https://tonioloewald.github.io/foresight-2026/ — ForeSight 2026
   A modern edition of the ForeSight RPG: one resolution rule (Score × Ease Factor), lethal fast combat, and a careful generative magic system.
+- https://tonioloewald.github.io/foresight-2026/initiative/ — Initiative
+  Tense situations run in **rounds** — brief bursts separated by waiting for someone to make a move. A round is as long...
+- https://tonioloewald.github.io/foresight-2026/intense-action/ — Intense Action
+  There is no action budget to track. In a round you have one **primary** focus, room for one deliberate **secondary** ...
 - https://tonioloewald.github.io/foresight-2026/introduction/ — Introduction
   ForeSight is a general-purpose role-playing game. It first appeared in 1986 as a science-fiction game system, grew a ...
 - https://tonioloewald.github.io/foresight-2026/magic/ — Magic
