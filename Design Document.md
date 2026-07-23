@@ -105,6 +105,38 @@ This litmus test has driven every refinement of ForeSight for decades, and the f
 
 11. **Broad skills, differentiated by familiarity.** Merge narrow skill splits where the underlying competence is one thing — e.g. handguns + longarms become Firearms, with a familiarity covering the gap if needed. (Same machinery as strategy 5: familiarities absorb what used to be subsystems and skill splits.)
 
+## Direction — settings-as-configuration + the one-pager spine (2026-07-22)
+
+Author brain-dump; **direction, not all finalized**. Numbers below marked *proposed* need a drafting/playtest pass and are grounded in **`legacy/foresight2004/ForeSight 2004 v48.pdf`** (with `Ch-i 2004 v2.pdf`, `Resolution_Table_v2.pdf`) — 2004 over 1986, per the source hierarchy.
+
+### A. Settings as configuration
+
+A **configuration page** lets the reader/GM pick a *setting* and have the rules, tables, and character sheet reshape to it. The setting is a level chosen on each of several **axes**:
+
+- **Technology** — a tech level (finer-grained options later).
+- **Magic** — none · rare-weak · rare · common-weak · common.
+- **Ch'i / Mystic Disciplines** — none · rare · common · common + weaving.
+- **Psionics** — none · rare · common-weak · common.
+- **Divine Magic** — none · rare-weak · common-weak · common.
+
+**Data-model implication (the load-bearing part):** this generalizes the flat genre `tags` we have now. Genre tags (`standard/ancient/modern/sf/fantasy`) answer *"does this fit the vibe?"*; the axes answer *"can this exist here?"* — a different question, so **keep them orthogonal**. Each entity gains a **capability requirement**: a threshold on the relevant axis (a fireball needs Magic ≥ some level; a laser needs Tech ≥ some level; a psi power needs Psionics ≥ rare). The rare/weak/common "strength" words are just ordinal levels on an axis, and a requirement is a threshold — which is what finally gives those strength words a principled home.
+
+**Rendering is context-dependent, not one switch:** in **rules prose**, an off subsystem shows a **placeholder** ("Magic is not available in this setting") — the reader should know the subsystem exists and is disabled, and can flip it on. In **tables and the character sheet**, unavailable content is **filtered out silently** — don't clutter with options you can't take.
+
+**Book vs interactive** (the project's recurring tension): the config page is a *web* feature. The ePub/PDF is built for **one** setting (default: everything on). So the config page is the front-end of the **setting/campaign** model — a "setting" is a saved configuration; a GM's campaign book is generated for their setting. This is the concrete first step of the Firestore/campaign roadmap (base → GM/community → per-campaign), not a detour.
+
+**Open:** exact level-sets per axis; whether a setting is a per-reader preference (localStorage, like today's tag toggles), a per-campaign fixed config, or both (likely: site default = all-on, reader may filter, campaign/book = fixed); how finely Tech subdivides.
+
+### B. The one-pager spine (mechanical core)
+
+Consolidate the mechanical core into five one-pagers, replacing today's sprawl (`the-one-rule` / `combat` / `damage` / `wounds-and-recovery` / `power-pools` / `quality-ratings` / `open-ended-resolution`). **Authoring rule for each: the core rule is ≤ 1 page; the examples and extra cases run longer but are there as *examples of applying the idea*, never ceremony or flowchart procedures.** (This is the thesis, made into a house style.)
+
+1. **One Rule** — resolution: SC × EF, how EFs work, competence-at-a-glance, challenge-at-a-glance, QRs & yield, speed, opposed resolution. Examples: lockpicking, repair, hot-rodding, persuasion, pickpocketing, sneaking. Plus **random QR** (poison, environmental damage, or any time you just need a QR with no opposed roll).
+2. **Initiative** — who goes first, who knows what when, pre-emption. Examples: combat, business machinations, legal battle, car chase.
+3. **Damage** — *proposed:* **6 wound levels; 6 = dead**, level = −(level) to all activity, **4 = incapacitated, 5 = dying without intervention**. Stun checks. **Damage taken = QR-yield × Damage Class × 0.5, rounded down; raw damage ≥ 0.25 triggers a stun check.** Armor types & how armor works; hit location; environmental damage; poison; wound recovery (and relapse); disease & infection. ⚠️ **Conflicts with the current "wound level 0→8" line in CLAUDE.md** — the 0–6 track supersedes; fix CLAUDE.md when this page is drafted.
+4. **Exhaustion** — one framework for **fatigue / magic / divine favor**, parallel to wounds but shorter and easier to recover. *Proposed:* exhaustion level = modifier to all *related* activity (**fatigue penalizes everything**); **4 = incapacitated, 5 = unconscious and may die** (like damage). Caused by really tiring things — usually a skill check: success avoids it or costs one level; failure is worse. Recovery cadence: **L1 → minutes + refreshment; L2 → real rest → L1; L3 → a good night's sleep → L2** (like convalescence, as debilitating, easier). **Magic by default is just fatigue** — casting in a mana-poor/rich area is simply more/less exhausting — or a separate pool if a setting conceives it that way. **Divine favor** is spent temporarily but gated by **Piety**, which behaves like a *skill* except it is driven by **deeds, not experience**. (Extends decided-simplification #4 and #8.)
+5. **Intense Action** — *this is §7a's "Simultaneous Action," refined; adopt the name "Intense Action."* Trying to do everything at once, across three tiers: **primary / secondary / automatic-reflex**. *Proposed modifiers:* concentrate on **one** thing → a **positive** modifier, but a **penalty to your automatic/reflex** actions. **Two** things → primary at **−1**, secondary **⅓–½ as effective** (e.g. movement) **or −2**. **Promote** a reflex/automatic action → secondary **+1**, → primary **+2** (the sniper: **+2** to notice if noticing is the focus, **+1** if keen but doing is still the focus). **A secondary action cannot pre-empt** (ties back to Initiative). ⚠️ **Reconcile with the committed `combat.md`:** §7a's ladder had *one thing = 0*; this shifts the baseline to *one thing = a focus bonus* and adds the reflex tier — an evolution, not a contradiction (the two-things row still reads −1/−2), but the page and §7a need to be squared, and `combat.md` splits into **Initiative** + **Intense Action**.
+
 ## Open questions
 
 - Exact overlap rule for duplicated skills from background factors.

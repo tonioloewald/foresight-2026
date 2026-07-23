@@ -44,6 +44,13 @@ Running list of things to revisit. Grouped by area; check off as resolved.
 - [ ] Later: replace the sheet's localStorage with the Firestore persistence library (field-level security for a shared campaign roster).
 - [ ] Trivial: remove the now-unused `.sub2` CSS rule in `docs/index.html`.
 
+## Settings-as-configuration + one-pager spine (2026-07-22 direction — see Design Document)
+- [ ] **Settings/configuration page** — pick a setting via axes (Tech, Magic, Ch'i, Psionics, Divine); rules/tables/sheet reshape to it. Depends on the data-model change below. Rules prose → placeholder for off subsystems; tables/sheet → filter silently. The web front-end of the setting/campaign (Firestore) model.
+- [ ] **Data-model: capability requirements.** Add a per-entity threshold on the setting axes (orthogonal to the genre `tags`). This is what the config page gates on — add it to entities as the one-pagers/data are (re)drafted.
+- [ ] **Refactor the mechanical core into the 5-page spine** — One Rule, Initiative, Damage, Exhaustion, Intense Action — grounded in `ForeSight 2004 v48.pdf`. Consolidates today's `the-one-rule`/`combat`/`damage`/`wounds-and-recovery`/`power-pools`/`quality-ratings`/`open-ended-resolution`. House rule: core ≤ 1 page, examples longer but never ceremony.
+- [ ] **Reconcile `combat.md` with "Intense Action"** — split it into Initiative + Intense Action; adopt the refined modifiers (focus bonus on one thing, the automatic/reflex tier, +1/+2 promotion, "secondary can't pre-empt"). This shifts §7a's one-thing baseline from 0 to a focus bonus — square the page with Design Document §7a.
+- [ ] **Wound track → 0–6** (6 = dead, 4 = incapacitated, 5 = dying). **Fix CLAUDE.md's "wound level 0→8"** when the Damage page is drafted.
+
 ## Rules one-pagers still to draft
 - [ ] NPCs (nouns + modifiers) · Interpersonal · Travel & wilderness · **Magic** · Religion · Mystic Disciplines (Ch'i)
 - [ ] Equipment category lists (weapons/armor/vehicles/tools) with DC-calibrated stats
